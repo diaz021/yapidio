@@ -1,0 +1,82 @@
+<ion-content [fullscreen]="true" class="detalle-content">
+
+  <!-- IMAGEN CON BOTÓN VOLVER -->
+  <div class="hero-imagen">
+    <img [src]="producto?.imagen" [alt]="producto?.nombre" class="producto-img"/>
+    <ion-button fill="clear" class="btn-volver" (click)="volver()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+  </div>
+
+  <!-- CONTENIDO -->
+  <div class="contenido" *ngIf="producto">
+
+    <!-- NOMBRE Y PRECIO -->
+    <div class="nombre-precio">
+      <h1 class="producto-nombre">{{ producto.nombre }}</h1>
+      <span class="producto-precio">${{ producto.precio | number }}</span>
+    </div>
+
+    <!-- INGREDIENTES -->
+    <div class="seccion">
+      <h3 class="seccion-titulo">Ingredientes</h3>
+      <p class="seccion-subtitulo">Desmarca lo que no quieres</p>
+      <div class="chips-container">
+        <div
+          *ngFor="let ingrediente of producto.ingredientes"
+          class="chip"
+          [class.chip-activo]="ingredientesSeleccionados.includes(ingrediente)"
+          (click)="toggleIngrediente(ingrediente)">
+          {{ ingrediente }}
+        </div>
+      </div>
+    </div>
+
+    <!-- ADICIONALES -->
+    <div class="seccion">
+      <h3 class="seccion-titulo">Adicionales</h3>
+      <div class="adicional-item" *ngFor="let adicional de producto.adicionales"
+        [class.adicional-activo]="adicionalesSeleccionados.includes(adicional.nombre)"
+        (click)="toggleAdicional(adicional.nombre, adicional.precio)">
+        <div class="adicional-info">
+          <span class="adicional-nombre">{{ adicional.nombre }}</span>
+          <span class="adicional-precio">+${{ adicional.precio | number }}</span>
+        </div>
+        <ion-icon
+          [name]="adicionalesSeleccionados.includes(adicional.nombre) ? 'checkmark-circle' : 'add-circle-outline'"
+          class="adicional-icon">
+        </ion-icon>
+      </div>
+    </div>
+
+    <!-- CANTIDAD -->
+    <div class="seccion">
+      <h3 class="seccion-titulo">Cantidad</h3>
+      <div class="cantidad-container">
+        <ion-button fill="clear" class="btn-cantidad" (click)="cambiarCantidad(-1)">
+          <ion-icon name="remove-circle-outline"></ion-icon>
+        </ion-button>
+        <span class="cantidad-numero">{{ cantidad }}</span>
+        <ion-button fill="clear" class="btn-cantidad" (click)="cambiarCantidad(1)">
+          <ion-icon name="add-circle-outline"></ion-icon>
+        </ion-button>
+      </div>
+    </div>
+
+    <div style="height: 100px;"></div>
+
+  </div>
+
+  <!-- BOTÓN FIJO ABAJO -->
+  <div class="footer-btn" *ngIf="producto">
+    <div class="total-info">
+      <span class="total-label">Total</span>
+      <span class="total-precio">${{ totalPrecio | number }}</span>
+    </div>
+    <ion-button class="btn-agregar" (click)="agregarAlCarrito()">
+      <ion-icon name="cart-outline" slot="start"></ion-icon>
+      Agregar
+    </ion-button>
+  </div>
+
+</ion-content>

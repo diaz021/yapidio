@@ -1,0 +1,58 @@
+<ion-content [fullscreen]="true">
+  <div class="register-container">
+
+    <div class="header-section">
+      <ion-button fill="clear" class="back-btn" (click)="irALogin()">
+        <ion-icon name="arrow-back-outline"></ion-icon>
+      </ion-button>
+      <h1 class="page-title">Crear cuenta</h1>
+      <p class="page-subtitle">Únete y empieza a pedir</p>
+    </div>
+
+    <div class="form-section">
+      <form [formGroup]="FormRegistro" (ngSubmit)="registrarse()">
+
+        <div class="input-group">
+          <ion-icon name="person-outline" class="input-icon"></ion-icon>
+          <ion-input formControlName="nombre" placeholder="Nombre completo" class="custom-input"></ion-input>
+        </div>
+
+        <div class="input-group">
+          <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+          <ion-input formControlName="email" placeholder="Correo electrónico" type="email" class="custom-input"></ion-input>
+        </div>
+
+        <div class="input-group">
+          <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+          <ion-input formControlName="pass" placeholder="Contraseña" class="custom-input">
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
+        </div>
+
+        <div class="input-group">
+          <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+          <ion-input formControlName="confirmPass" placeholder="Confirmar contraseña" class="custom-input">
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
+        </div>
+
+        <!-- ERROR CONTRASEÑAS -->
+        <ion-text color="danger" *ngIf="FormRegistro.errors?.['passwordsNoCoinciden'] && FormRegistro.get('confirmPass')?.touched">
+          <p class="error-text">Las contraseñas no coinciden</p>
+        </ion-text>
+
+        <!-- ERROR FIREBASE -->
+        <ion-text color="danger" *ngIf="mensajeError">
+          <p class="error-text">{{ mensajeError }}</p>
+        </ion-text>
+
+        <ion-button expand="block" type="submit" class="btn-primary" [disabled]="cargando">
+          <ion-spinner *ngIf="cargando" name="crescent"></ion-spinner>
+          <span *ngIf="!cargando">Crear cuenta</span>
+        </ion-button>
+
+      </form>
+    </div>
+
+  </div>
+</ion-content>

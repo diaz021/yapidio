@@ -1,0 +1,64 @@
+<ion-menu contentId="main-content">
+  <ion-content class="menu-content">
+
+    <!-- PERFIL -->
+    <div class="menu-perfil">
+      <div class="perfil-avatar">
+        <img src="assets/img/logo.png" alt="avatar"/>
+      </div>
+      <h2 class="perfil-nombre">YAPIDIO</h2>
+      <p class="perfil-email">usuario@yapidio.com</p>
+    </div>
+
+    <!-- OPCIONES -->
+    <div class="menu-opciones">
+
+      <div class="menu-item" (click)="navegarA('/pages/dashboard')">
+        <div class="menu-item-icon">
+          <ion-icon name="home-outline"></ion-icon>
+        </div>
+        <span class="menu-item-texto">Inicio</span>
+        <ion-icon name="chevron-forward-outline" class="menu-item-arrow"></ion-icon>
+      </div>
+
+      <div class="menu-item" (click)="navegarA('/pages/pedidos')">
+        <div class="menu-item-icon">
+          <ion-icon name="cart-outline"></ion-icon>
+        </div>
+        <span class="menu-item-texto">Mi Carrito</span>
+        <ion-icon name="chevron-forward-outline" class="menu-item-arrow"></ion-icon>
+      </div>
+
+      <div class="menu-item" (click)="navegarA('/pages/favoritos')">
+        <div class="menu-item-icon">
+          <ion-icon name="heart-outline"></ion-icon>
+        </div>
+        <span class="menu-item-texto">Favoritos</span>
+        <ion-icon name="chevron-forward-outline" class="menu-item-arrow"></ion-icon>
+      </div>
+
+      <div class="menu-item" (click)="navegarA('/pages/historial')">
+        <div class="menu-item-icon">
+          <ion-icon name="time-outline"></ion-icon>
+        </div>
+        <span class="menu-item-texto">Historial</span>
+        <ion-icon name="chevron-forward-outline" class="menu-item-arrow"></ion-icon>
+      </div>
+
+    </div>
+
+    <!-- DIVIDER -->
+    <div class="menu-divider"></div>
+
+    <!-- CERRAR SESIÓN -->
+    <div class="menu-item menu-item-danger" (click)="cerrarSesion()">
+      <div class="menu-item-icon danger-icon">
+        <ion-icon name="log-out-outline"></ion-icon>
+      </div>
+      <span class="menu-item-texto danger-texto">Cerrar Sesión</span>
+    </div>
+
+  </ion-content>
+</ion-menu>
+
+<ion-router-outlet id="main-content"></ion-router-outlet>

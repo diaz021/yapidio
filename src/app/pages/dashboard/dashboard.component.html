@@ -1,0 +1,117 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <div class="top-header">
+
+      <div class="brand-area">
+        <ion-menu-button class="menu-btn"></ion-menu-button>
+
+        <img src="../../../assets/img/logo.png" alt="logo" class="header-logo"/>
+        <span class="brand-name">YAPIDIO</span>
+      </div>
+
+      <ion-button fill="clear" class="notification-btn" (click)="irAHistorial()">
+        <ion-icon name="notifications-outline"></ion-icon>
+      </ion-button>
+
+    </div>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content [fullscreen]="true" class="dashboard-content">
+
+  <div class="hero-section">
+    <div class="user-info">
+      <p class="greeting">Hola 👋</p>
+      <h2 class="username">{{ nombreUsuario }}</h2>
+      <p class="tagline">¿Qué quieres comer hoy?</p>
+    </div>
+
+    <div class="user-avatar">
+      <img src="../../../assets/img/logo.png" alt="avatar"/>
+    </div>
+  </div>
+
+  <div class="search-container">
+    <div class="search-box">
+      <ion-icon name="search-outline" class="search-icon"></ion-icon>
+
+      <ion-input
+        placeholder="Buscar comida o restaurante..."
+        class="search-input"
+        [(ngModel)]="terminoBusqueda"
+        (ionInput)="buscar()">
+      </ion-input>
+
+      <ion-icon
+        *ngIf="terminoBusqueda"
+        name="close-circle-outline"
+        class="clear-icon"
+        (click)="limpiarBusqueda()">
+      </ion-icon>
+    </div>
+
+    <div class="resultados-busqueda" *ngIf="terminoBusqueda">
+      <div
+        class="resultado-card"
+        *ngFor="let item of resultadosBusqueda"
+        (click)="abrirResultado(item)">
+
+        <img
+          [src]="item.tipo === 'restaurante' ? item.restaurante.imagen : item.producto?.imagen"
+          alt="resultado"/>
+
+        <div class="resultado-info">
+          <h4>
+            {{ item.tipo === 'restaurante' ? item.restaurante.nombre : item.producto?.nombre }}
+          </h4>
+
+          <p *ngIf="item.tipo === 'restaurante'">
+            Restaurante
+          </p>
+
+          <p *ngIf="item.tipo === 'producto'">
+            Producto de {{ item.restaurante.nombre }}
+          </p>
+        </div>
+
+        <ion-icon name="chevron-forward-outline"></ion-icon>
+      </div>
+
+      <div class="sin-resultados" *ngIf="resultadosBusqueda.length === 0">
+        <ion-icon name="search-outline"></ion-icon>
+        <p>No encontramos resultados para "{{ terminoBusqueda }}"</p>
+      </div>
+    </div>
+  </div>
+
+  <div class="section" *ngIf="!terminoBusqueda">
+    <div class="section-header">
+      <h3 class="section-title">🏪 Restaurantes</h3>
+      <span class="section-link">Ver todos</span>
+    </div>
+
+    <div class="carrusel">
+      <div
+        class="carrusel-item restaurante-item"
+        *ngFor="let restaurante of restaurantes"
+        (click)="irARestaurante(restaurante.id)">
+
+        <div class="carrusel-img-container restaurante-img">
+          <img [src]="restaurante.imagen" [alt]="restaurante.nombre"/>
+        </div>
+
+        <p class="carrusel-nombre">{{ restaurante.nombre }}</p>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 80px;"></div>
+
+  <ion-fab vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button class="fab-carrito" (click)="irA('/pages/pedidos')">
+      <img src="../../../assets/img/carrito.png" style="width: 28px; height: 28px; object-fit: contain;"/>
+      <span *ngIf="cantidadCarrito > 0" class="badge">{{ cantidadCarrito }}</span>
+    </ion-fab-button>
+  </ion-fab>
+
+</ion-content>

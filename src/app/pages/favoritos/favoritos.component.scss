@@ -1,0 +1,74 @@
+.favoritos-content {
+  --background: #1a1a2e;
+  padding: 16px;
+}
+
+.header {
+  text-align: center;
+  color: white;
+  margin-bottom: 16px;
+}
+
+ion-segment {
+  margin-bottom: 20px;
+}
+
+/* CARDS */
+.card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #f8f9fa;
+  border-radius: 14px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.img {
+  width: 60px;
+  height: 60px;
+  border-radius: 12px;
+  object-fit: cover;
+}
+
+.info h2 {
+  margin: 0;
+  font-size: 14px;
+  color: #1a1a2e;
+}
+
+.info p {
+  margin: 0;
+  font-size: 12px;
+  color: #444;
+}
+
+.vacio {
+  text-align: center;
+  color: #ccc;
+  margin-top: 40px;
+}
+
+.header-custom {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.titulo {
+  flex: 1;
+  text-align: center;
+  margin: 0;
+}
+
+.btn-volver {
+  color: white;
+}
+
+.acciones {
+  display: flex;
+  gap: 8px;
+  margin-top: 6px;
+}

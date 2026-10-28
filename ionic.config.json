@@ -1,0 +1,7 @@
+{
+  "name": "yapidio",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}

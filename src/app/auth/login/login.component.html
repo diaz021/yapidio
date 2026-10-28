@@ -1,0 +1,57 @@
+<ion-content [fullscreen]="true">
+  <div class="login-container">
+
+    <div class="logo-section">
+      <img src="../../../assets/img/logo.png" alt="Logo" class="logo"/>
+      <h1 class="app-title">YAPIDIO</h1>
+      <p class="app-subtitle">Tu comida favorita, a un toque</p>
+    </div>
+
+    <div class="form-section">
+      <form [formGroup]="FormLogin" (ngSubmit)="iniciarSesion()">
+
+        <div class="input-group">
+          <ion-icon name="mail-outline" class="input-icon"></ion-icon>
+          <ion-input
+            formControlName="email"
+            placeholder="Correo electrónico"
+            type="email"
+            class="custom-input">
+          </ion-input>
+        </div>
+
+        <div class="input-group">
+          <ion-icon name="lock-closed-outline" class="input-icon"></ion-icon>
+          <ion-input
+            formControlName="pass"
+            placeholder="Contraseña"
+            type="password"
+            class="custom-input">
+            <ion-input-password-toggle slot="end"></ion-input-password-toggle>
+          </ion-input>
+        </div>
+
+        <ion-button expand="block" type="submit" class="btn-primary">
+          Iniciar Sesión
+        </ion-button>
+
+      </form>
+
+      <div class="divider">
+        <span>¿No tienes cuenta?</span>
+      </div>
+
+      <ion-button expand="block" fill="outline" class="btn-secondary" (click)="irARegistro()">
+        Regístrate
+      </ion-button>
+    </div>
+
+    <ion-alert
+      trigger="alerta-login"
+      header="Error"
+      [message]="mensajeError"
+      [buttons]="alertButtons">
+    </ion-alert>
+
+  </div>
+</ion-content>

@@ -1,0 +1,87 @@
+<ion-content [fullscreen]="true" class="carrito-content">
+
+  <!-- HEADER -->
+  <div class="carrito-header">
+    <ion-button fill="clear" class="btn-volver" (click)="volver()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+
+    <h1 class="header-titulo">Mi Carrito</h1>
+
+    <!-- 👇 CONTENEDOR FIJO -->
+    <div class="header-right">
+      <ion-button 
+        fill="clear" 
+        class="btn-limpiar" 
+        (click)="confirmarPedido()" 
+        *ngIf="items.length > 0">
+        <ion-icon name="trash-outline"></ion-icon>
+      </ion-button>
+    </div>
+  </div>
+
+  <!-- CARRITO VACÍO -->
+  <div *ngIf="items.length === 0" class="carrito-vacio">
+    <ion-icon name="cart-outline" class="vacio-icon"></ion-icon>
+    <h3 class="vacio-titulo">Tu carrito está vacío</h3>
+    <p class="vacio-subtitulo">Agrega productos para comenzar</p>
+    <ion-button class="btn-explorar" (click)="volver()">
+      Explorar productos
+    </ion-button>
+  </div>
+
+  <!-- LISTA DE PRODUCTOS -->
+  <div *ngIf="items.length > 0" class="contenido">
+
+    <div class="item-card" *ngFor="let item of items">
+      <div class="item-img-container">
+        <img [src]="item.imagen" [alt]="item.nombre"/>
+      </div>
+      <div class="item-info">
+        <h4 class="item-nombre">{{ item.nombre }}</h4>
+        <p class="item-detalle" *ngIf="item.adicionales.length > 0">
+          + {{ item.adicionales.join(', ') }}
+        </p>
+        <div class="item-bottom">
+          <span class="item-precio">${{ item.precio * item.cantidad | number }}</span>
+          <div class="item-cantidad">
+            <span class="cantidad-badge">x{{ item.cantidad }}</span>
+          </div>
+        </div>
+      </div>
+      <ion-button fill="clear" class="btn-eliminar" (click)="eliminarItem(item.id)">
+        <ion-icon name="close-circle-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+    <!-- RESUMEN -->
+    <div class="resumen-card">
+      <h3 class="resumen-titulo">Resumen del pedido</h3>
+      <div class="resumen-fila">
+        <span class="resumen-label">Subtotal</span>
+        <span class="resumen-valor">${{ total | number }}</span>
+      </div>
+      <div class="resumen-fila">
+        <span class="resumen-label">Domicilio</span>
+        <span class="resumen-valor">$3.000</span>
+      </div>
+      <div class="resumen-divider"></div>
+      <div class="resumen-fila total-fila">
+        <span class="resumen-label-total">Total</span>
+        <span class="resumen-valor-total">${{ total + 3000 | number }}</span>
+      </div>
+    </div>
+
+    <div style="height: 120px;"></div>
+
+  </div>
+
+  <!-- BOTÓN CONFIRMAR FIJO -->
+  <div class="footer-btn" *ngIf="items.length > 0">
+    <ion-button expand="block" class="btn-confirmar" (click)="confirmarPedido()">
+      <ion-icon name="checkmark-circle-outline" slot="start"></ion-icon>
+      Confirmar Pedido — ${{ total + 3000 | number }}
+    </ion-button>
+  </div>
+
+</ion-content>

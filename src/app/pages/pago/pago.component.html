@@ -1,0 +1,177 @@
+<ion-content [fullscreen]="true" class="pago-content">
+
+  <div class="pago-header">
+    <ion-button fill="clear" class="btn-volver" (click)="volver()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+
+    <h2 class="header-titulo">Finalizar Pedido</h2>
+
+    <div style="width: 48px;"></div>
+  </div>
+
+  <div class="resumen-section">
+    <h3 class="section-titulo">Resumen del pedido</h3>
+
+    <div class="resumen-item" *ngFor="let item of items">
+      <span>{{ item.nombre }} x{{ item.cantidad }}</span>
+      <strong>{{ item.precio * item.cantidad | currency:'COP':'symbol':'1.0-0' }}</strong>
+    </div>
+
+    <div class="resumen-divider"></div>
+
+    <div class="resumen-fila">
+      <span class="resumen-label">Subtotal</span>
+      <span class="resumen-valor">{{ subtotal | currency:'COP':'symbol':'1.0-0' }}</span>
+    </div>
+
+    <div class="resumen-fila">
+      <span class="resumen-label">Domicilio</span>
+      <span class="resumen-valor">{{ domicilio | currency:'COP':'symbol':'1.0-0' }}</span>
+    </div>
+
+    <div class="resumen-fila total">
+      <span class="resumen-label">Total</span>
+      <span class="resumen-valor-total">{{ total | currency:'COP':'symbol':'1.0-0' }}</span>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3 class="section-titulo">Datos de entrega</h3>
+
+    <div class="form-group">
+      <p class="label-custom">Nombre completo</p>
+      <ion-input
+        class="input-custom"
+        placeholder="Ej: Juan Pérez"
+        [(ngModel)]="datosPago.nombre">
+      </ion-input>
+    </div>
+
+    <div class="form-group">
+      <p class="label-custom">Correo electrónico</p>
+      <ion-input
+        class="input-custom"
+        type="email"
+        placeholder="Ej: correo@email.com"
+        [(ngModel)]="datosPago.email">
+      </ion-input>
+    </div>
+
+    <div class="form-group">
+      <p class="label-custom">Teléfono</p>
+      <ion-input
+        class="input-custom"
+        type="tel"
+        placeholder="Ej: 3001234567"
+        [(ngModel)]="datosPago.telefono"
+        (ionInput)="formatearTelefono($event)">
+      </ion-input>
+    </div>
+
+    <div class="form-group">
+      <p class="label-custom">Dirección</p>
+      <ion-textarea
+        class="textarea-custom"
+        placeholder="Ej: Calle 10 # 20-30, barrio..."
+        autoGrow="true"
+        [(ngModel)]="datosPago.direccion">
+      </ion-textarea>
+    </div>
+  </div>
+
+  <div class="form-section">
+    <h3 class="section-titulo">Método de pago</h3>
+
+    <button
+      type="button"
+      class="metodo-card metodo-boton"
+      [class.activo]="datosPago.metodoPago === 'efectivo'"
+      (click)="cambiarMetodoPago('efectivo')">
+
+      <ion-icon name="cash-outline" class="metodo-icon"></ion-icon>
+
+      <div>
+        <h4 class="metodo-titulo">Efectivo</h4>
+        <p class="metodo-subtitulo">Paga cuando recibas tu pedido</p>
+      </div>
+
+      <ion-icon
+        class="check-icon"
+        [name]="datosPago.metodoPago === 'efectivo' ? 'checkmark-circle' : 'ellipse-outline'">
+      </ion-icon>
+    </button>
+
+    <button
+      type="button"
+      class="metodo-card metodo-boton"
+      [class.activo]="datosPago.metodoPago === 'tarjeta'"
+      (click)="cambiarMetodoPago('tarjeta')">
+
+      <ion-icon name="card-outline" class="metodo-icon"></ion-icon>
+
+      <div>
+        <h4 class="metodo-titulo">Tarjeta</h4>
+        <p class="metodo-subtitulo">Débito o crédito</p>
+      </div>
+
+      <ion-icon
+        class="check-icon"
+        [name]="datosPago.metodoPago === 'tarjeta' ? 'checkmark-circle' : 'ellipse-outline'">
+      </ion-icon>
+    </button>
+
+    <div *ngIf="mostrarFormularioTarjeta" class="tarjeta-form">
+      <div class="form-group">
+        <p class="label-custom">Número de tarjeta</p>
+        <ion-input
+          class="input-custom"
+          placeholder="0000 0000 0000 0000"
+          inputmode="numeric"
+          (ionInput)="formatearTarjeta($event)">
+        </ion-input>
+      </div>
+
+      <div class="form-row">
+        <div class="form-group">
+          <p class="label-custom">Vencimiento</p>
+          <ion-input
+            class="input-custom"
+            placeholder="MM/AA"
+            [(ngModel)]="datosPago.fechaVencimiento">
+          </ion-input>
+        </div>
+
+        <div class="form-group">
+          <p class="label-custom">CVV</p>
+          <ion-input
+            class="input-custom"
+            placeholder="123"
+            inputmode="numeric"
+            (ionInput)="formatearCvv($event)">
+          </ion-input>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="height: 95px;"></div>
+
+  <div class="footer-btn">
+    <ion-button
+      expand="block"
+      class="btn-pagar"
+      [disabled]="procesando"
+      (click)="procesarPago()">
+
+      <ion-spinner *ngIf="procesando" name="crescent"></ion-spinner>
+      <span *ngIf="!procesando">
+        Procesar pago - {{ total | currency:'COP':'symbol':'1.0-0' }}
+      </span>
+      <span *ngIf="procesando">
+        Procesando...
+      </span>
+    </ion-button>
+  </div>
+
+</ion-content>

@@ -1,0 +1,75 @@
+<ion-content class="favoritos-content">
+
+  <!-- HEADER -->
+  <div class="header-custom">
+    <ion-button fill="clear" class="btn-volver" (click)="volver()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+
+    <h1 class="titulo">⭐ Favoritos</h1>
+
+    <div style="width: 40px;"></div>
+  </div>
+
+  <!-- SEGMENTOS -->
+  <ion-segment [(ngModel)]="segmento" (ionChange)="cambiarSegmento($event)">
+    <ion-segment-button value="restaurantes">
+      Restaurantes
+    </ion-segment-button>
+    <ion-segment-button value="productos">
+      Productos
+    </ion-segment-button>
+  </ion-segment>
+
+  <!-- ===================== -->
+  <!-- 🍽️ RESTAURANTES -->
+  <!-- ===================== -->
+  <div *ngIf="segmento === 'restaurantes'">
+
+    <div *ngIf="restaurantes.length === 0" class="vacio">
+      No tienes restaurantes favoritos 😢
+    </div>
+
+    <div class="card" *ngFor="let r of restaurantes">
+      <img [src]="r.imagen" class="img"/>
+
+      <div class="info">
+        <h2>{{ r.nombre }}</h2>
+
+        <ion-button size="small" (click)="irARestaurante(r)">
+          Ir al restaurante
+        </ion-button>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ===================== -->
+  <!-- ❤️ PRODUCTOS -->
+  <!-- ===================== -->
+  <div *ngIf="segmento === 'productos'">
+
+    <div *ngIf="productos.length === 0" class="vacio">
+      No tienes productos favoritos 😢
+    </div>
+
+    <div class="card" *ngFor="let p of productos">
+
+      <img [src]="p.imagen" class="img"/>
+
+      <div class="info">
+        <h2>{{ p.nombre }}</h2>
+        <p>${{ p.precio | number }}</p>
+
+        <div class="acciones">
+          <ion-button size="small" fill="outline" (click)="irAProducto(p)">
+            Ver producto
+          </ion-button>
+        </div>
+      </div>
+
+    </div>
+
+  </div>
+
+</ion-content>

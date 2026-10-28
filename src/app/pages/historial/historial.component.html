@@ -1,0 +1,77 @@
+<ion-content class="historial-content">
+
+  <div class="header-custom">
+
+    <ion-button fill="clear" class="btn-volver" (click)="volver()">
+      <ion-icon name="arrow-back-outline"></ion-icon>
+    </ion-button>
+
+    <h1 class="titulo">Historial de Pedidos</h1>
+
+    <div style="width: 40px;"></div>
+
+  </div>
+
+  <div *ngIf="pedidos.length === 0" class="empty">
+    <p>No tienes pedidos aún</p>
+  </div>
+
+  <div 
+    *ngFor="let pedido of pedidos"
+    class="pedido-card"
+    (click)="verDetalle(pedido)"
+  >
+    <div class="pedido-top">
+      <span>#{{ pedido.id.slice(-6) }}</span>
+      <span class="estado">{{ pedido.estado }}</span>
+    </div>
+
+    <h2>${{ pedido.total | number }}</h2>
+
+    <p>{{ pedido.datosPago.metodoPago }}</p>
+    <p>📍 {{ pedido.datosPago.direccion }}</p>
+  </div>
+
+  <div class="header-custom">
+
+
+
+</div>
+
+</ion-content>
+
+<!-- MODAL -->
+<div *ngIf="pedidoSeleccionado && pedidoSeleccionado.items" class="modal-overlay">
+
+  <div class="modal">
+
+    <div class="modal-header">
+      <h2>Pedido #{{ pedidoSeleccionado.id.slice(-6) }}</h2>
+      <ion-button fill="clear" (click)="cerrarDetalle()">
+        <ion-icon name="close-outline"></ion-icon>
+      </ion-button>
+    </div>
+
+    <p><b>Fecha:</b> {{ pedidoSeleccionado.fechaPedido | date:'short' }}</p>
+    <p><b>Método:</b> {{ pedidoSeleccionado.datosPago.metodoPago }}</p>
+    <p><b>Dirección:</b> {{ pedidoSeleccionado.datosPago.direccion }}</p>
+
+    <hr>
+
+    <div *ngFor="let item of pedidoSeleccionado.items">
+      {{ item.nombre }} x{{ item.cantidad }} - ${{ item.precio * item.cantidad | number }}
+    </div>
+
+    <hr>
+
+    <p>Subtotal: ${{ pedidoSeleccionado.subtotal | number }}</p>
+    <p>Domicilio: ${{ pedidoSeleccionado.domicilio | number }}</p>
+    <p><b>Total: ${{ pedidoSeleccionado.total | number }}</b></p>
+
+    <ion-button expand="block" (click)="cerrarDetalle()">
+      Cerrar
+    </ion-button>
+
+  </div>
+
+</div>
