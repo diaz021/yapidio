@@ -1,6 +1,6 @@
 # YaPidio
 
-Aplicación móvil de domicilios de comida, al estilo de Rappi, desarrollada como **proyecto de práctica profesional** de Ingeniería de Sistemas en la Corporación Universitaria Remington.
+Aplicación móvil de domicilios de comida, al estilo de Rappi, desarrollada como **proyecto del seminario de grado** (opción de grado) de Ingeniería de Sistemas en la Corporación Universitaria Remington.
 
 > **Proyecto académico sin terminar.** Es un prototipo: los restaurantes y productos están definidos en el código, y el pago es simulado (no procesa pagos reales). Los nombres e imágenes de restaurantes se usan solo como ejemplo.
 
